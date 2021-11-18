@@ -53,17 +53,17 @@ export default function Overview() {
 
     useEffect (() => {
         getSelectedCountryData();
-    }, [selectedCountry])   // this is wrong
+    }, [selectedCountry])   // this is wrong but for now does not work without it
 
 
     return (
         <div className='overview'>
             <Dropdown countries={countries} setSelectedCountry={setSelectedCountry}/>
             <div className='overview__cards'>
-                {/* <StatsCard cardTitle='Cases' cardValue={cases: selectedCountryData.cases, selectedCountryData.todayCases,}/> */}
-                <StatsCard cardTitle='Deaths' cardValue={selectedCountryData}/>
-                <StatsCard cardTitle='Recovered' cardValue={selectedCountryData}/>
-                <StatsCard cardTitle='Hospitalised' cardValue={selectedCountryData}/>
+                <StatsCard cardTitle='Cases' selectedCountryData={selectedCountryData}/>
+                <StatsCard cardTitle='Deaths' selectedCountryData={selectedCountryData}/>
+                <StatsCard cardTitle='Recovered' selectedCountryData={selectedCountryData}/>
+                <StatsCard cardTitle='Tests' selectedCountryData={selectedCountryData}/>
             </div>
 
             <div className='overview__charts'>               

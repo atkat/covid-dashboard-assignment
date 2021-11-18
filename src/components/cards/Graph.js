@@ -49,12 +49,13 @@ const data = [
 
 export default function Graph(props) {
 
+    //to be used to get real data for graphs
     const getHistoricalCountryData = async () => {
         const endPoint = ( !props.selectedCountry || props.selectedCountry === 'Global' ) ? 'all' : `${props.selectedCountry}`;
 
         const response = await fetch(`https://disease.sh/v3/covid-19/historical/${endPoint}`);
         const responseData = await response.json();
-        return responseData;
+        console.log(responseData);
     }
 
     useEffect(() => {
