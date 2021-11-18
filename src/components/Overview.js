@@ -3,61 +3,68 @@ import {useState, useEffect} from 'react';
 import StatsCard from './cards/StatsCard';
 import Dropdown from './Dropdown';
 import Map from './cards/Map'
-import PieChart from './cards/PieChart';
+import PieChartComponent from './cards/PieChartComponent';
 import Graph from './cards/Graph';
-import GlobalOverview from './GlobalOverview';
 
 export default function Overview() {
 
     const [countries, setCountries] = useState([])
-    const [selectedCountry, setSelectedCountry] = useState('Global')
+    const [selectedCountry, setSelectedCountry] = useState('')
     const [selectedCountryData, setSelectedCountryData] = useState({})
-    const [pieChartData, setPieChartData] = useState({})
-    
-    const getCountries = async () => {
-       await fetch("https://disease.sh/v3/covid-19/countries")
-       .then(response => response.json())
-       .then(responseData => {
-          const countries = responseData.map(country => (
-            {
-                name: country.country,
-                code: country.countryInfo.iso2
-            }
-          ));
-          setCountries(countries);
-       })
-    }
+    const [pieChartData, setPieChartData] = useState([])
 
-    const getSelectedCountryData = async () => {
+    const getCountriesData = async () => {    
+       
+            const response = await fetch("https://disease.sh/v3/covid-19/countries")
+            const responseData = await response.json();
+            const countries = responseData
+                                .map(country => (
+                                    {
+                                        name: country.country,
+                                        code: country.countryInfo.iso2
+                                    }
+                                ));
+                            
+            setCountries(countries);
 
+            const pieData = responseData
+                    .map(country => (
+                        {
+                            name: country.country,
+                            value: country.todayCases
+                        }
+                    ))
+                    .sort((a,b) => b.value-a.value)
+                    .slice(0,5)
+              
+            setPieChartData(pieData)
+    }   
+
+    const getSelectedCountryData =  () => {
         const endPoint = ( !selectedCountry || selectedCountry === 'Global' ) ? 'all' : `countries/${selectedCountry}`;
+        console.log(endPoint)
 
-        await fetch(`https://disease.sh/v3/covid-19/${endPoint}`)
-        .then(response => response.json())
-        .then(countryData => setSelectedCountryData(countryData) )
+        fetch(`https://disease.sh/v3/covid-19/${endPoint}`)
+            .then(response=>response.json())
+            .then(countryData => {
+                setSelectedCountryData(countryData) 
+            })
     }
-
-    const getPieChartData = async () => {
-        await fetch('https://disease.sh/v3/covid-19/countries')
-        .then(response => response.json())
-        .then(data => {
-            const firstFive = data.slice(4).map( c => c.todayCases);
-            console.log(data[0])
-            setPieChartData(firstFive)
-        })
-    }
+    //try with async await
+    // const getSelectedCountryData = async () => {
+    //     const endPoint = ( !selectedCountry || selectedCountry === 'Global' ) ? 'all' : `countries/${selectedCountry}`;
+    //     const response = await fetch(`https://disease.sh/v3/covid-19/${endPoint}`);
+    //     const responseData = await response.json();
+    //     console.log(responseData)
+    //     setSelectedCountryData(responseData)       
+    // }
  
     useEffect (() => {
-        getCountries();
+        getCountriesData()
     }, [])
 
     useEffect (() => {
         getSelectedCountryData();
-    }, [selectedCountry, selectedCountryData])
-
-    useEffect (() => {
-        getPieChartData();
-        //console.log(pieChartData)
     }, [])
 
 
@@ -73,17 +80,25 @@ export default function Overview() {
 
             <div className='overview__charts'>               
                 {(!selectedCountry || selectedCountry==='Global') ?
-                    <GlobalOverview/> 
-                    : 
-                    <>
+                <>
+                    <div className="overview__left">
+                        <PieChartComponent pieChartData={pieChartData}/>    
+                        <Graph/>                  
+                    </div>
+                    <div className="overview__right">
+                        <Map/> 
+                    </div> 
+                </>
+                : 
+                <>
                     <div className="overview__left">
                         <Graph/>
                     </div>
                     <div className="overview__right">
-                        <PieChart/>
+                        {/* <PieChartComponent/> */}
                         <Graph/>
                     </div>
-                    </>
+                </>
                 }
             </div>
             

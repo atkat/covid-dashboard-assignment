@@ -1,6 +1,6 @@
 import React from 'react';
 import Graph from './cards/Graph';
-import PieChart from './cards/PieChart';
+import PieChartComponent from './cards/PieChartComponent';
 import Map from './cards/Map';
 
 export default function GlobalOverview() {
@@ -8,7 +8,7 @@ export default function GlobalOverview() {
         <div className='overview__charts'>
                 <div className="overview__left">
                     <Graph/>
-                    <PieChart/>
+                    <PieChartComponent/>
                 </div>
                 <div className="overview__right">
                      <Map/> 
