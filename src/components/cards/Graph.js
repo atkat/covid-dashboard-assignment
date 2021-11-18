@@ -1,7 +1,6 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-
+import {useState, useEffect} from 'react';
 
 const data = [
     {
@@ -49,6 +48,19 @@ const data = [
   ];
 
 export default function Graph(props) {
+
+    const getHistoricalCountryData = async () => {
+        const endPoint = ( !props.selectedCountry || props.selectedCountry === 'Global' ) ? 'all' : `${props.selectedCountry}`;
+
+        const response = await fetch(`https://disease.sh/v3/covid-19/historical/${endPoint}`);
+        const responseData = await response.json();
+        return responseData;
+    }
+
+    useEffect(() => {
+        getHistoricalCountryData()
+    }, [])
+
     return (
         <div className='overview__graph'>        
           <ResponsiveContainer  width='95%'>

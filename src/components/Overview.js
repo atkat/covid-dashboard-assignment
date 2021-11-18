@@ -39,25 +39,13 @@ export default function Overview() {
               
             setPieChartData(pieData)
     }   
-
-    const getSelectedCountryData =  () => {
+  
+    const getSelectedCountryData = async () => {
         const endPoint = ( !selectedCountry || selectedCountry === 'Global' ) ? 'all' : `countries/${selectedCountry}`;
-        console.log(endPoint)
-
-        fetch(`https://disease.sh/v3/covid-19/${endPoint}`)
-            .then(response=>response.json())
-            .then(countryData => {
-                setSelectedCountryData(countryData) 
-            })
+        const response = await fetch(`https://disease.sh/v3/covid-19/${endPoint}`);
+        const responseData = await response.json();
+        setSelectedCountryData(responseData)       
     }
-    //try with async await
-    // const getSelectedCountryData = async () => {
-    //     const endPoint = ( !selectedCountry || selectedCountry === 'Global' ) ? 'all' : `countries/${selectedCountry}`;
-    //     const response = await fetch(`https://disease.sh/v3/covid-19/${endPoint}`);
-    //     const responseData = await response.json();
-    //     console.log(responseData)
-    //     setSelectedCountryData(responseData)       
-    // }
  
     useEffect (() => {
         getCountriesData()
@@ -65,7 +53,7 @@ export default function Overview() {
 
     useEffect (() => {
         getSelectedCountryData();
-    }, [])
+    }, [selectedCountry])   // this is wrong
 
 
     return (
@@ -83,7 +71,7 @@ export default function Overview() {
                 <>
                     <div className="overview__left">
                         <PieChartComponent pieChartData={pieChartData}/>    
-                        <Graph/>                  
+                        <Graph selectedCountry={selectedCountry}/>                  
                     </div>
                     <div className="overview__right">
                         <Map/> 
@@ -92,11 +80,11 @@ export default function Overview() {
                 : 
                 <>
                     <div className="overview__left">
-                        <Graph/>
+                        <Graph selectedCountry={selectedCountry}/>
                     </div>
                     <div className="overview__right">
-                        {/* <PieChartComponent/> */}
-                        <Graph/>
+                        <PieChartComponent pieChartData={[{name: 'cool stat', value: 3.14}]}/>
+                        <Graph selectedCountry={selectedCountry}/>
                     </div>
                 </>
                 }
