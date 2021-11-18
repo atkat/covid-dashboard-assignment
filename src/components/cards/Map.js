@@ -16,8 +16,8 @@ export default function Map(props) {
     //     }, []);
 
     return ( 
-        <div className='overview__map' >
-            <p>When I grow up, I am going to be a cool map </p>
+        <div className='overview__map' style={{display:'flex', alignItems: 'center', justifyContent: 'center'}} >
+            <p >When I grow up, I am going to be a cool map </p>
             {/* <iframe 
                 src = "https://covid19.biglocalnews.org/world-map/?embed=world&l=de#/"
                 frameBorder="0" 

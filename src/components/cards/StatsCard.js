@@ -73,6 +73,7 @@ export default function StatsCard(props) {
                 <div className='overview__stats-card'>
                     <h3>{props.cardTitle}</h3>
                     <p>Total: {props.selectedCountryData.tests}</p>
+                    <p>Population: {props.selectedCountryData.population}</p>
                 </div>
             }
             </>

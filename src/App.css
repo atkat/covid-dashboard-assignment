@@ -89,6 +89,7 @@ font-size: large;
 
 .overview__dropdown {
   margin-bottom: 15px;
+  display: flex;
 }
 
 .overview__dropdown input {
@@ -181,11 +182,10 @@ font-size: large;
 }
 
 .overview__map {
-  height: 40vh;
+  height: 100%;
   border-radius: 10px;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
   color: var(--lightGrey);
-  padding: 10%;
 }
 
 .timeline__article {
@@ -215,6 +215,15 @@ font-size: large;
 }
 
 @media (max-width: 980px) {
+  .overview__dropdown {
+    width: 60vw;
+    align-self: flex-start;
+  }
+
+  .overview {
+    align-items: center;
+  }
+  
   .overview__charts {
     flex-direction: column;
   }
@@ -243,11 +252,16 @@ font-size: large;
 @media (max-width: 768px) {
   .overview__cards {
     flex-direction: column;
+    justify-content: center;
+    height: 90vh;
   }
-  .overview__number-card {
-    width: 80vw;
+  .overview__stats-card {
+    width: 40vw;
+    height: 15vh;
   }
-
+  /* .sidebar__logo-title p{
+    width: 90%
+  } */
 }
 
 
