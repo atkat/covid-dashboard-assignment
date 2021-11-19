@@ -1,4 +1,5 @@
-html, body {
+body {
+  height: 100vh;
   margin: 0;
   font-family: 'Lato', sans-serif;
   overflow: hidden;
@@ -6,6 +7,7 @@ html, body {
   --dark: #232229;
   --backgroundColor: #302e38; 
   --orange: #e68849;
+  background-color:var(--backgroundColor);
   
 }
 h1, h2, h3, p {
@@ -23,10 +25,9 @@ a {
 }
 .app-main {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: flex-start;
-  background-color: var(--backgroundColor);
 }
 
 .sidebar {
@@ -37,6 +38,10 @@ a {
   align-items: left;
   flex-direction: column;
   flex: 0.1;
+}
+
+.sidebar:last-child { 
+  overflow-y: scroll; 
 }
 
 .sidebar__logo-title {
@@ -79,7 +84,7 @@ font-size: large;
 
 .overview {
   height: 100%;
-  width: 80vw;
+  width: 80%;
   padding: 30px 50px 0px 50px;
   display: flex;
   flex-direction: column;
@@ -88,6 +93,7 @@ font-size: large;
 }
 
 .overview__dropdown {
+  margin-left: 1%;
   margin-bottom: 15px;
   display: flex;
 }
@@ -112,12 +118,14 @@ font-size: large;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  padding-left: -1%;
 }
 
 .overview__stats-card {
   background-color: var(--dark);
   width: 17vw;
   height: 15vh;
+  margin: 1%;
   border-radius: 5%;
   box-shadow: rgba(39, 39, 39, 0.562) 0px 2px 8px 0px;
   display: flex;
@@ -127,7 +135,7 @@ font-size: large;
 }
 
 .overview__stats-card h3 {
-  color:var(--orange);
+  color: var(--orange);
   font-size: x-large;
   margin-bottom: 5px;
 }
@@ -152,18 +160,22 @@ font-size: large;
   flex-direction: column;
   justify-content: space-between;
   width: 45%;
-  
+  padding-left: 1%;
 }
 
 .overview__right {
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
 }
 .overview__pieChart {
   width: fit-content;
   color: var(--orange);
   padding: 2% 12% 6% 6%;
-  
+  /* border-radius: 10px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25); */
 }
 
 .overview__pieChartLabel {
@@ -182,14 +194,18 @@ font-size: large;
 }
 
 .overview__map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   border-radius: 10px;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
   color: var(--lightGrey);
+  flex-shrink: 2;
 }
 
 .timeline__article {
-  color: grey;
+  color: var(--lightGrey);
   margin: 20px;
   padding: 20px;
   width: 70vw;
@@ -201,9 +217,11 @@ font-size: large;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
   transition: all 0.2s;
 }
+
 .timeline__article a {
   font-size: small;
 }
+
 .timeline__article svg {
   vertical-align: bottom;
   font-size: 0.8em;
@@ -214,7 +232,16 @@ font-size: large;
   transform: scale(1.01);
 }
 
+@media (min-width: 768px) {
+  .sidebar {
+    height: 100vh;
+  }
+}
 @media (max-width: 980px) {
+  body {
+    overflow: scroll;
+  }
+
   .overview__dropdown {
     width: 60vw;
     align-self: flex-start;
@@ -222,48 +249,87 @@ font-size: large;
 
   .overview {
     align-items: center;
-  }
-  
+  }  
+
   .overview__charts {
     flex-direction: column;
+    justify-content: space-between;
   }
+
   .overview__left {
     width: 80vw;
   }
+
   .overview__right {
     width: 80vw;
   }
+
   .overview__stats-card h3 {
     font-size: x-large;
   }
-  
+
   .overview__stats-card p:first-of-type {
     font-size: medium;
     color: var(--lightGrey)
   }
+
   .overview__stats-card p:nth-of-type(2) {
     font-size: x-small;
     color: var(--lightGrey)
   }
 
-
+  .overview__map {
+    height: 60vh;
+  }
+ 
 }
 
 @media (max-width: 768px) {
+
   .overview__cards {
-    flex-direction: column;
-    justify-content: center;
-    height: 90vh;
+    flex-wrap: wrap;
+    align-content: flex-start;
   }
+
   .overview__stats-card {
-    width: 40vw;
-    height: 15vh;
+    width: 35vw;
+    height:20vh;
   }
-  /* .sidebar__logo-title p{
-    width: 90%
-  } */
+  
+  .sidebar__logo-title {
+    font-size: medium;
+  }
+
+  .sidebar__item p {
+    font-size: medium;
+  }
+
 }
 
+/* just for presentation as I had a hard time customising the charts: */
+
+.overview__test {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+}
+.overview__pieChartFiller  {
+  width: 35%;
+  /* margin-right: 10%; */
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+}
+.overview__pieChartFiller ul{
+  color: var(--lightGrey);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
 
 
 

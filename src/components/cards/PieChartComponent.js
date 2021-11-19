@@ -32,7 +32,7 @@ export default function PieChartComponent(props) {
                 }}
         >        
             <div className='overview__pieChartLabel'>
-                <h3>Most affected countries</h3>
+                <h3>{props.title}</h3>
             </div>
             <PieChart className='overview__pieChart' width={200} height={200}>    
                 <Pie

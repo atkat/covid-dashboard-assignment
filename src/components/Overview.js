@@ -69,8 +69,20 @@ export default function Overview() {
             <div className='overview__charts'>               
                 {(!selectedCountry || selectedCountry==='Global') ?
                 <>
-                    <div className="overview__left">
-                        <PieChartComponent pieChartData={pieChartData}/>    
+                    <div className='overview__left'>
+                        <div className='overview__test'>
+                            <PieChartComponent title='Most affected countries' pieChartData={pieChartData}/>
+                            {/* just a filler list to play around with layout */}
+                            <div className='overview__pieChartFiller'>  
+                                <ul>
+                                    {pieChartData.map( a => {
+                                        return (
+                                            <li>{a.name}</li>
+                                        )
+                                    })}
+                                </ul>
+                            </div>
+                        </div>    
                         <Graph selectedCountry={selectedCountry}/>                  
                     </div>
                     <div className="overview__right">
@@ -83,7 +95,7 @@ export default function Overview() {
                         <Graph selectedCountry={selectedCountry}/>
                     </div>
                     <div className="overview__right">
-                        <PieChartComponent pieChartData={[{name: 'cool stat', value: 3.14}]}/>
+                        <PieChartComponent title='important data' pieChartData={[{name: 'cool stat', value: 3.14}]}/>
                         <Graph selectedCountry={selectedCountry}/>
                     </div>
                 </>
